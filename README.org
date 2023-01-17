@@ -1,0 +1,9 @@
+#+title: Readme
+
+Load Chip 8 rom file.
+
+With the instructions in hand, we should create a loop.
+
+Inside the loop, we need a timer.
+
+Execute the instructions inside the loop
