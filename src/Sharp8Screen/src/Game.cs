@@ -1,24 +1,29 @@
 using System.Diagnostics;
-using System.Numerics;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using Sharp8Core.Screen;
 using Sharp8Core;
 using Sharp8Core.RomReader;
+using Sharp8Core.Instructions;
 
 namespace Sharp8Screen;
 
 public class Screen : Chip8Screen
 {
-    public readonly float FPS = 1000f / 60;
-    private readonly Vector2 _scale = new Vector2(8, 8);
+    public const float FPS = 1000f / 60;
+    private readonly Vector2i _scale = new Vector2i(16, 16);
     private readonly Chip8RomReader _romReader;
-    private HexInstructions? _hexInstructions;
+    private Chip8Memory _memory;
+    private Chip8 _chip8;
+    private RenderWindow _window;
 
-    public Screen(Chip8RomReader romReader)
+    public Screen(Chip8 chip8, Chip8Memory memory, Chip8RomReader romReader)
     {
         _romReader = romReader;
+        _chip8 = chip8;
+        _memory = memory;
+        _window = CreateWindow();
     }
 
     private static void OnClose(object sender, EventArgs e)
@@ -28,7 +33,7 @@ public class Screen : Chip8Screen
 
     public void RunRomFile(string filename)
     {
-        _hexInstructions = _romReader.Read(filename);
+        _memory.LoadInstructions(_romReader.Read(filename));
 
         MainLoop();
     }
@@ -36,30 +41,39 @@ public class Screen : Chip8Screen
     private void MainLoop()
     {
         Clock clock = new Clock();
-        RenderWindow window = CreateWindow();
         var shape = new CircleShape(100);
         Stopwatch stopwatch = new Stopwatch();
 
-        while (window.IsOpen)
+        while (_window.IsOpen)
         {
             stopwatch.Restart();
 
-            WindowLoop(window);
+            WindowLoop(_window);
 
-            var random = new Random().Next(0, 3);
-            shape.FillColor = new Color[]
-            {
-                Color.Green,
-                Color.Blue,
-                Color.Magenta
-            }[random];
+            // ExecuteInstruction();
 
-            window.Draw(shape);
-            window.Display();
+            _window.Display();
 
             float fps = Clock(stopwatch);
 
-            Console.WriteLine(fps);
+            // Console.WriteLine(fps);
+        }
+    }
+
+    private void ClearScreen()
+    {
+        _window.Clear();
+    }
+
+    private void ExecuteInstruction()
+    {
+        var instruction = _chip8.ReadInstruction().Item2;
+
+        switch (instruction)
+        {
+            case Instruction.ClearScreen:
+                ClearScreen();
+                break;
         }
     }
 
@@ -74,6 +88,34 @@ public class Screen : Chip8Screen
         );
     }
 
+    private void DrawSquare(int unscaledX, int unscaledY)
+    {
+        var x = unscaledX * _scale.X;
+        var y = unscaledY * _scale.Y;
+
+        var vertex = new VertexArray(PrimitiveType.LineStrip, 5);
+        vertex[0] = new Vertex(new Vector2f(x, y));
+        vertex[1] = new Vertex(new Vector2f(x + _scale.X, y));
+        vertex[2] = new Vertex(new Vector2f(x + _scale.X, y + _scale.Y));
+        vertex[3] = new Vertex(new Vector2f(x, y + _scale.Y));
+        vertex[4] = new Vertex(new Vector2f(x, y));
+
+        _window.Draw(vertex);
+
+        Console.WriteLine(unscaledX);
+    }
+
+    private void DrawGrid()
+    {
+        for (var i = 0; i < Size.X; i++)
+        {
+            for (var j = 0; j < Size.Y; j++)
+            {
+                DrawSquare(i, j);
+            }
+        }
+    }
+
     private float Clock(Stopwatch stopwatch)
     {
         float sleepTime = FPS - stopwatch.ElapsedMilliseconds;
@@ -86,10 +128,14 @@ public class Screen : Chip8Screen
         return fps;
     }
 
-    private static void WindowLoop(RenderWindow window)
+    private void WindowLoop(RenderWindow window)
     {
-        window.Clear();
+        // window.Clear();
         window.DispatchEvents();
+
+        // TODO: draw grid only when some key is pressed?
+        DrawGrid();
+
         window.Closed += new EventHandler(OnClose!);
     }
 }

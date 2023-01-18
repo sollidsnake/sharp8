@@ -10,13 +10,18 @@ public class Chip8Memory
 
     public Chip8Memory(HexInstructions instructions)
     {
-        Memory = new byte[MemorySize];
         _instructions = instructions;
+        Memory = new byte[MemorySize];
     }
 
-    public (string, InstructionTable) InstructionAtPoint(int point)
+    public void LoadInstructions(string instructions)
     {
-        var instruction = _instructions.Instructions![point];
+        _instructions.LoadInstructions(instructions);
+    }
+
+    public (string, Instruction) InstructionAtPoint(int point)
+    {
+        var instruction = _instructions!.Instructions![point];
         return (instruction, InstructionDictionary.GetInstruction(instruction));
     }
 }

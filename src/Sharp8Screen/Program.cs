@@ -11,9 +11,13 @@ public class Program
 
     public static void Main(string[] args)
     {
-        Screen screen = new Screen(
-            new Chip8RomReader(new HexInstructions(), new FileSystem())
+        var memory = new Chip8Memory(new HexInstructions());
+        var chip8 = new Chip8(memory);
+        var romReader = new Chip8RomReader(
+            new FileSystem()
         );
+
+        Screen screen = new Screen(chip8, memory, romReader);
         if (args.Length == 2)
         {
             LoadRomFile(screen, args[1]);

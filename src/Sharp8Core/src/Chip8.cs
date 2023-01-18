@@ -1,5 +1,4 @@
 using Sharp8Core.Instructions;
-using Sharp8Core.RomReader;
 
 namespace Sharp8Core;
 
@@ -13,7 +12,12 @@ public class Chip8
         Memory = memory;
     }
 
-    public (string, InstructionTable) ReadInstruction()
+    public void LoadInstructions(string instructions)
+    {
+        Memory.LoadInstructions(instructions);
+    }
+
+    public (string, Instruction) ReadInstruction()
     {
         return Memory.InstructionAtPoint(_currentInstruction++);
     }

@@ -4,18 +4,18 @@ public static class InstructionDictionary
 {
     private static Dictionary<
         string,
-        InstructionTable
-    > _instructionsDictionary = new Dictionary<string, InstructionTable >()
+        Instruction
+    > _instructionsDictionary = new Dictionary<string, Instruction >()
     {
-        {  "00E0", InstructionTable.ClearScreen },
-        {  "1NNN", InstructionTable.Jump },
-        {  "6XNN", InstructionTable.SetRegister },
-        {  "7XNN", InstructionTable.AddValueToRegister },
-        {  "ANNN", InstructionTable.SetIndexRegister },
-        {  "DXYN", InstructionTable.Draw },
+        {  "00E0", Instruction.ClearScreen },
+        {  "1NNN", Instruction.Jump },
+        {  "6XNN", Instruction.SetRegister },
+        {  "7XNN", Instruction.AddValueToRegister },
+        {  "ANNN", Instruction.SetIndexRegister },
+        {  "DXYN", Instruction.Draw },
     };
 
-    public static InstructionTable GetInstruction(string instruction)
+    public static Instruction GetInstruction(string instruction)
     {
         return _instructionsDictionary[instruction];
     }

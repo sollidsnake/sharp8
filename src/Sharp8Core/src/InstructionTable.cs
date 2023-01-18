@@ -1,6 +1,6 @@
 namespace Sharp8Core.Instructions;
 
-public enum InstructionTable
+public enum Instruction
 {
     ClearScreen,
     Jump,
