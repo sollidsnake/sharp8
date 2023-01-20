@@ -1,27 +1,49 @@
-using Sharp8Core.Instructions;
-
 namespace Sharp8Core;
 
 public class Chip8Memory
 {
-    private const int MemorySize = 4096;
-    protected byte[] Memory;
-    private HexInstructions _instructions;
+    private const int RomStartingAddress = 0x200 + 1;
+    private const uint MemorySize = 4096;
+    protected byte[] Memory = new byte[MemorySize];
+    private int _pointingAddress = -1;
+    public byte[] RomBytes { get; private set; } = default!;
+    public int PC { get; private set; } = RomStartingAddress;
+    public Chip8Registers Registers;
 
-    public Chip8Memory(HexInstructions instructions)
+    public int PointingAddress
     {
-        _instructions = instructions;
+        get { return _pointingAddress; }
+        set { _pointingAddress = value; }
+    }
+
+    public Chip8Memory(Chip8Registers registers)
+    {
         Memory = new byte[MemorySize];
+        Registers = registers;
     }
 
-    public void LoadInstructions(string instructions)
+    public void LoadRom(byte[] rom)
     {
-        _instructions.LoadInstructions(instructions);
+        RomBytes = rom;
+        for (var i = 0x0; i < rom.Length; i += 0x1)
+        {
+            Memory[i + RomStartingAddress] = rom[i];
+        }
     }
 
-    public (string, Instruction) InstructionAtPoint(int point)
+    public byte GetByteAtAddress(int address)
     {
-        var instruction = _instructions!.Instructions![point];
-        return (instruction, InstructionDictionary.GetInstruction(instruction));
+        return Memory[address];
+    }
+
+    public int CurrentInstruction()
+    {
+        return (Memory[PC] << 8) | Memory[PC + 1];
+    }
+
+    public void NextInstruction()
+    {
+        PC += 2;
+        CurrentInstruction();
     }
 }

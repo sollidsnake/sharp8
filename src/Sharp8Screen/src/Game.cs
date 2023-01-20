@@ -71,7 +71,7 @@ public class Screen : Chip8Screen
 
         switch (instruction)
         {
-            case Instruction.ClearScreen:
+            case InstructionManager.ClearScreen:
                 ClearScreen();
                 break;
         }
