@@ -2,9 +2,8 @@ namespace Sharp8Core.Instructions;
 
 public class InstructionClearScreen : IInstruction
 {
-    public InstructionType Target => InstructionType.Screen;
-
-    public void Execute(Chip8Memory memory, int instructionCode)
+    public void Execute(Chip8 chip8, int instructionCode)
     {
+        chip8.Screen.Clear();
     }
 }

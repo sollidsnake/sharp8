@@ -1,5 +1,4 @@
 #+title: Readme
-
 Load Chip 8 rom file.
 
 With the instructions in hand, we should create a loop.
@@ -7,3 +6,12 @@ With the instructions in hand, we should create a loop.
 Inside the loop, we need a timer.
 
 Execute the instructions inside the loop
+
+
+* IBM Logo flow
+
+00e0: clear screen
+a22a: store 22a (554) to I register
+600c: stores C (14) to register V
+6108: stores 8 to resgister 1
+d01f: draw at position 14x8

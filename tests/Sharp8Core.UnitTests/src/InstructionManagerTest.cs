@@ -34,7 +34,7 @@ public class InstructionManagerTest
     public void FromCode_ShouldReturnInstructionJump(int instructionCode)
     {
         var instruction = InstructionManager.FromCode(instructionCode);
-        Assert.IsType<InstructionJump>(instruction.Action);
+        Assert.IsType<InstructionSetIRegister>(instruction.Action);
     }
 
     [Fact]

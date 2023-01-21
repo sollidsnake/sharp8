@@ -1,11 +1,9 @@
 namespace Sharp8Core.Instructions;
 
-public class InstructionJump : IInstruction
+public class InstructionSetIRegister : IInstruction
 {
-    public InstructionType Target { get; } = InstructionType.Core;
-
-    public void Execute(Chip8Memory memory, int code)
+    public void Execute(Chip8 chip8, int code)
     {
-        memory.PointingAddress =  code - 0xA000;
+        chip8.Memory.IRegisterAddress =  code - 0xA000;
     }
 }

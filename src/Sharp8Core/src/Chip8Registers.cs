@@ -24,7 +24,7 @@ public class Chip8Registers
         return this;
     }
 
-    public int GetRegisterValue(int index)
+    public int GetValue(int index)
     {
         return _register[index];
     }

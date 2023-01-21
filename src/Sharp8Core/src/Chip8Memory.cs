@@ -2,19 +2,23 @@ namespace Sharp8Core;
 
 public class Chip8Memory
 {
-    private const int RomStartingAddress = 0x200 + 1;
+    private const int RomStartingAddress = 0x200;
     private const uint MemorySize = 4096;
-    protected byte[] Memory = new byte[MemorySize];
-    private int _pointingAddress = -1;
+    public byte[] Memory { get; } = new byte[MemorySize];
+    private int _iRegisterAddress = 0;
     public byte[] RomBytes { get; private set; } = default!;
     public int PC { get; private set; } = RomStartingAddress;
     public Chip8Registers Registers;
-
-    public int PointingAddress
+    public int IRegisterAddress
     {
-        get { return _pointingAddress; }
-        set { _pointingAddress = value; }
+        get { return _iRegisterAddress; }
+        set { _iRegisterAddress = value; }
     }
+    public int IRegisterValue
+    {
+        get { return Memory[_iRegisterAddress]; }
+    }
+
 
     public Chip8Memory(Chip8Registers registers)
     {

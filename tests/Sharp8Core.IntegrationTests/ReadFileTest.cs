@@ -1,4 +1,5 @@
 using System.IO.Abstractions;
+using System.Text;
 using Sharp8Core.RomReader;
 
 namespace Sharp8Core.IntegrationTests;
@@ -24,7 +25,8 @@ public class ReadFileTest
 
         var romReader = new Chip8RomReader(new FileSystem());
         var memory = new Chip8Memory(new Chip8Registers());
-        var chip8 = new Chip8(memory, romReader);
+        var screen = new Chip8Screen();
+        var chip8 = new Chip8(screen, memory, romReader);
 
         chip8.LoadRom(filepath);
 
@@ -42,15 +44,28 @@ public class ReadFileTest
     public void GivenIBMLogoFile_ShouldReadItsInstructions()
     {
         var filepath = IbmLogoPath;
+
         var romReader = new Chip8RomReader(new FileSystem());
         var memory = new Chip8Memory(new Chip8Registers());
-        var chip8 = new Chip8(memory, romReader);
+        var screen = new Chip8Screen();
+        var chip8 = new Chip8(screen, memory, romReader);
         chip8.LoadRom(filepath);
 
         Assert.Equal(0x00E0, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0xA22A, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x22A, chip8.Memory.PointingAddress);
+        Assert.Equal(0x22A, chip8.Memory.IRegisterAddress);
+        Assert.Equal(0xff, chip8.Memory.IRegisterValue);
         Assert.Equal(0x600C, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x0C, chip8.Memory.Registers.GetRegisterValue(0));
+        Assert.Equal(0x0C, chip8.Memory.Registers.GetValue(0));
+        Assert.Equal(0x6108, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x08, chip8.Memory.Registers.GetValue(1));
+        Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
+
+        Console.WriteLine(chip8.Screen.GenGridTableWithBorders());
+
+        for (var x = 0x0C; x < 0xf; x++)
+        {
+            Assert.True(chip8.Screen.GetPixel(x, 0x08));
+        }
     }
 }
