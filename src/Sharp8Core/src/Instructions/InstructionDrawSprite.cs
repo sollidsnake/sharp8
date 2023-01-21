@@ -8,7 +8,7 @@ namespace Sharp8Core.Instructions;
 
 public class InstructionDrawSprite : IInstruction
 {
-    public void Execute(Chip8 chip8, int instructionCode)
+    public bool Execute(Chip8 chip8, int instructionCode)
     {
         var vx = (instructionCode >> 8) & 0xf;
         var vy = (instructionCode >> 4) & 0xf;
@@ -25,5 +25,7 @@ public class InstructionDrawSprite : IInstruction
             chip8.Screen.DrawSpriteLine(x, line + y, bytesToDraw);
             spriteAddress += 1;
         }
+
+        return true;
     }
 }

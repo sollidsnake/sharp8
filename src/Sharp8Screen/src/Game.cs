@@ -55,8 +55,6 @@ public class Screen : Chip8Screen
             _window.Display();
 
             float fps = Clock(stopwatch);
-
-            // Console.WriteLine(fps);
         }
     }
 

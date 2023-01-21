@@ -7,7 +7,8 @@ public class Chip8Memory
     public byte[] Memory { get; } = new byte[MemorySize];
     private int _iRegisterAddress = 0;
     public byte[] RomBytes { get; private set; } = default!;
-    public int PC { get; private set; } = RomStartingAddress;
+    // TODO: remove programcounter from chip8memory and put on chip8
+    public int ProgramCounter { get; set; } = RomStartingAddress;
     public Chip8Registers Registers;
     public int IRegisterAddress
     {
@@ -18,7 +19,6 @@ public class Chip8Memory
     {
         get { return Memory[_iRegisterAddress]; }
     }
-
 
     public Chip8Memory(Chip8Registers registers)
     {
@@ -42,12 +42,17 @@ public class Chip8Memory
 
     public int CurrentInstruction()
     {
-        return (Memory[PC] << 8) | Memory[PC + 1];
+        return (Memory[ProgramCounter] << 8) | Memory[ProgramCounter + 1];
+    }
+
+    public void GoToAddress(int address)
+    {
+        ProgramCounter = address;
     }
 
     public void NextInstruction()
     {
-        PC += 2;
+        ProgramCounter += 2;
         CurrentInstruction();
     }
 }

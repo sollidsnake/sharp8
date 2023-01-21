@@ -8,5 +8,8 @@ public enum InstructionType
 
 public interface IInstruction
 {
-    public void Execute(Chip8 chip8, int instructionCode);
+    /*
+     * returns true if cpu should increase pc
+     */
+    public bool Execute(Chip8 chip8, int instructionCode);
 }

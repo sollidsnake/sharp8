@@ -18,7 +18,14 @@ public class InstructionManager
                 => Factory(instruction, new InstructionSetRegister()),
             int x when x >= 0xd000 && x <= 0xdFFF
                 => Factory(instruction, new InstructionDrawSprite()),
-            _ => throw new Exception("Invalid instruction"),
+            int x when x >= 0x7000 && x <= 0x7FFF
+                => Factory(instruction, new InstructionAddToRegisterValue()),
+            int x when x >= 0x1000 && x <= 0x1FFF
+                => Factory(instruction, new InstructionJumpToAddress()),
+            _
+                => throw new Exception(
+                    $"Unimplemented instruction {instruction:X4}"
+                ),
         };
     }
 

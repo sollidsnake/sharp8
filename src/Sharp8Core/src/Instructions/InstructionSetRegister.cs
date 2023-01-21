@@ -8,11 +8,13 @@ namespace Sharp8Core.Instructions;
  */
 public class InstructionSetRegister : IInstruction
 {
-    public void Execute(Chip8 chip8, int instructionCode)
+    public bool Execute(Chip8 chip8, int instructionCode)
     {
         var lastTwoHex = instructionCode & 0x00FF;
         var secondHex = instructionCode >> 8 & 0xf;
 
         chip8.Memory.Registers.setVIndex(secondHex, lastTwoHex);
+
+        return true;
     }
 }

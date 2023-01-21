@@ -14,9 +14,13 @@ public class Chip8Screen : IScreen
         {
             try
             {
-                Grid[x, y] = (bytes & (1 << i)) != 0;
+                var pixel = (((bytes << i) & 128) >> 7) != 0;
+                Grid[x, y] = pixel;
             }
-            catch (IndexOutOfRangeException) { }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("trying to drawn out of the canvas");
+            }
             x++;
         }
     }

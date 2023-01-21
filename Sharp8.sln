@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp8Screen", "src\Sharp8S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp8Core.IntegrationTests", "tests\Sharp8Core.IntegrationTests\Sharp8Core.IntegrationTests.csproj", "{6D1DD4AA-B42B-436E-BB23-42BFDBDE1A40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp8Console", "src\Sharp8Console\Sharp8Console.csproj", "{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,10 +42,15 @@ Global
 		{6D1DD4AA-B42B-436E-BB23-42BFDBDE1A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D1DD4AA-B42B-436E-BB23-42BFDBDE1A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1DD4AA-B42B-436E-BB23-42BFDBDE1A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F877DE94-7FD5-41C7-9125-438095AEE2D3} = {6B5CCE67-A543-467A-8A0D-63DB9CA9CC40}
 		{5131795B-36BC-4B7E-9285-325D0DA6FB51} = {1CEBF970-8BAE-4825-A671-82B8944BEB11}
 		{6D1DD4AA-B42B-436E-BB23-42BFDBDE1A40} = {6B5CCE67-A543-467A-8A0D-63DB9CA9CC40}
+		{8C050CF6-352B-4AEA-94B6-9BEDB1C89C4D} = {1CEBF970-8BAE-4825-A671-82B8944BEB11}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,4 @@
 using System.IO.Abstractions;
-using System.Text;
 using Sharp8Core.RomReader;
 
 namespace Sharp8Core.IntegrationTests;
@@ -61,11 +60,29 @@ public class ReadFileTest
         Assert.Equal(0x08, chip8.Memory.Registers.GetValue(1));
         Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
 
-        Console.WriteLine(chip8.Screen.GenGridTableWithBorders());
-
-        for (var x = 0x0C; x < 0xf; x++)
-        {
-            Assert.True(chip8.Screen.GetPixel(x, 0x08));
-        }
+        Assert.Equal(0x7009, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(21, chip8.Memory.Registers.GetValue(0));
+        Assert.Equal(8, chip8.Memory.Registers.GetValue(1));
+        Assert.Equal(0xa239, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x239, chip8.Memory.IRegisterAddress);
+        Assert.Equal(0xff, chip8.Memory.IRegisterValue);
+        Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xa248, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x7008, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xD01F, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x7004, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xa257, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xD01F, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x7008, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xA266, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x7008, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xa275, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x1228, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x228, chip8.Memory.ProgramCounter);
+        Assert.Equal(0x1228, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x1228, chip8.ExecuteNextInstruction().Code);
+        Assert.Equal(0x1228, chip8.ExecuteNextInstruction().Code);
     }
 }
