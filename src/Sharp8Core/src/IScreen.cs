@@ -8,6 +8,8 @@ public interface IScreen
     public int Height { get; }
     public bool[,] Grid { get; }
 
+    public abstract void ScreenUpdated(int x, int y, int height);
+
     public int ScreenSize
     {
         get { return Width * Height; }

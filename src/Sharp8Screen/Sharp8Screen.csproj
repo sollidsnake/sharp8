@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Raylib-cs" Version="4.2.0.1" />
     <PackageReference Include="SFML.Net" Version="2.5.0" />
     <PackageReference Include="TestableIO.System.IO.Abstractions" Version="19.1.5" />
   </ItemGroup>

@@ -8,6 +8,7 @@ public class Chip8
     public IScreen Screen { get; }
     public Chip8Memory Memory { get; }
     private Chip8RomReader _romReader;
+    private float FPS = 1f / 60;
 
     public Chip8(IScreen screen, Chip8Memory memory, Chip8RomReader romReader)
     {
@@ -34,6 +35,18 @@ public class Chip8
         if (instruction.Action.Execute(this, instruction.Code))
         {
             Memory.NextInstruction();
+        }
+
+        return instruction;
+    }
+
+    public InstructionManager ExecuteUntilNextDraw()
+    {
+        var instruction = ExecuteNextInstruction();
+
+        if (instruction.Action.GetType() != typeof(InstructionDrawSprite))
+        {
+            return ExecuteUntilNextDraw();
         }
 
         return instruction;

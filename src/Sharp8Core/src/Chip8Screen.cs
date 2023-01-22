@@ -8,7 +8,7 @@ public class Chip8Screen : IScreen
 
     public void Clear() { }
 
-    public void DrawSpriteLine(int x, int y, int bytes)
+    public virtual void DrawSpriteLine(int x, int y, int bytes)
     {
         for (int i = 0; i < 8; i++)
         {
@@ -33,6 +33,10 @@ public class Chip8Screen : IScreen
     public bool IsPixelSet(byte x, byte y)
     {
         throw new NotImplementedException();
+    }
+
+    public virtual void ScreenUpdated(int x, int y, int height)
+    {
     }
 
     public void SetPixel(byte x, byte y)

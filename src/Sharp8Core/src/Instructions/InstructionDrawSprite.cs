@@ -12,19 +12,21 @@ public class InstructionDrawSprite : IInstruction
     {
         var vx = (instructionCode >> 8) & 0xf;
         var vy = (instructionCode >> 4) & 0xf;
-        var lines = instructionCode & 0x000f;
+        var height = instructionCode & 0x000f;
         var spriteAddress = chip8.Memory.IRegisterAddress;
 
         var x = chip8.Memory.Registers.GetValue(vx);
         var y = chip8.Memory.Registers.GetValue(vy);
 
-        for (int line = 0; line < lines; line++)
+        for (int line = 0; line < height; line++)
         {
             var bytesToDraw = chip8.Memory.Memory[spriteAddress];
 
             chip8.Screen.DrawSpriteLine(x, line + y, bytesToDraw);
             spriteAddress += 1;
         }
+
+        chip8.Screen.ScreenUpdated(x, y, height);
 
         return true;
     }
