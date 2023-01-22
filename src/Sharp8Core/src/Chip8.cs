@@ -8,7 +8,7 @@ public class Chip8
     public IScreen Screen { get; }
     public Chip8Memory Memory { get; }
     private Chip8RomReader _romReader;
-    private float FPS = 1f / 60;
+    private const int CLOCK_SPEED = 500; // Hz
 
     public Chip8(IScreen screen, Chip8Memory memory, Chip8RomReader romReader)
     {
@@ -40,16 +40,9 @@ public class Chip8
         return instruction;
     }
 
-    public InstructionManager ExecuteUntilNextDraw()
+    public void WaitClock()
     {
-        var instruction = ExecuteNextInstruction();
-
-        if (instruction.Action.GetType() != typeof(InstructionDrawSprite))
-        {
-            return ExecuteUntilNextDraw();
-        }
-
-        return instruction;
+        Thread.Sleep((int)(1000f / CLOCK_SPEED));
     }
 
     public void PrintDebug(InstructionManager instruction)

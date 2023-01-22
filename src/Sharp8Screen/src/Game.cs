@@ -1,22 +1,22 @@
-using Raylib_cs;
+using SFML.Graphics;
+using SFML.System;
 using Sharp8Core;
 using Sharp8Core.RomReader;
 using System.IO.Abstractions;
-using System.Numerics;
 
 namespace Sharp8Screen;
 
 public class Game
 {
-    public const int FPS = 240;
-    private readonly int _scale = 16;
-    private readonly int _scaleY = 16;
+    public const int FPS = 60;
+    private readonly Vector2i _scale = new Vector2i(16, 16);
     private Chip8 _chip8;
-    private Chip8Screen _screen = new Chip8Screen();
+    private Screen _screen;
+    private const int INSTRUCTIONS_PER_FRAME = 10;
 
     public Game()
     {
-
+        _screen = new Screen();
         var memory = new Chip8Memory(new Chip8Registers());
         var romReader = new Chip8RomReader(new FileSystem());
         _chip8 = new Chip8(_screen, memory, romReader);
@@ -24,23 +24,33 @@ public class Game
 
     public void Run(string filename)
     {
-        Raylib.InitWindow(64 * _scale, 32 * _scale, "Sharp8");
-        Raylib.SetTargetFPS(FPS);
         _chip8.LoadRom(filename);
-        var rayLibScreen = new RaylibScreen(_screen);
+        _screen.Window.SetFramerateLimit(FPS);
 
-        while (!Raylib.WindowShouldClose())
+        var clock = new Clock();
+
+        while (_screen.Window.IsOpen)
         {
-            Raylib.BeginDrawing();
+            var elapsed = clock.ElapsedTime;
 
-            Raylib.ClearBackground(Color.BLACK);
+            _screen.Window.DispatchEvents();
 
-            rayLibScreen.Draw();
+            for (int i = 0; i < INSTRUCTIONS_PER_FRAME; i++)
+            {
+                _chip8.ExecuteNextInstruction();
+            }
 
-            _chip8.ExecuteUntilNextDraw();
+            _screen.Draw();
+            _chip8.WaitClock();
 
-            Raylib.EndDrawing();
+            var time = clock.ElapsedTime;
+            Console.WriteLine($"FPS: {1f / time.AsSeconds()}");
+            clock.Restart();
         }
+    }
 
+    private static void OnClose(object sender, EventArgs e)
+    {
+        ((RenderWindow)sender).Close();
     }
 }

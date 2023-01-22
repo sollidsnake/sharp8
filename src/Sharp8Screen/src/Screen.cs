@@ -53,7 +53,7 @@ public class Screen : Chip8Screen
 
     public void Draw()
     {
-        // DrawPixels();
+        DrawPixels();
         // DrawGrid();
         Window.Display();
     }
