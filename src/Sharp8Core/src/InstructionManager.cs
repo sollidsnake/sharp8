@@ -20,6 +20,8 @@ public class InstructionManager
                 => Factory(instruction, new InstructionDrawSprite()),
             int x when x >= 0x7000 && x <= 0x7FFF
                 => Factory(instruction, new InstructionAddToRegisterValue()),
+            int x when x >= 0x8000 && x <= 0x8FFF
+                => Factory(instruction, new InstructionVxXorVy()),
             int x when x >= 0x1000 && x <= 0x1FFF
                 => Factory(instruction, new InstructionJumpToAddress()),
             _
@@ -37,4 +39,5 @@ public class InstructionManager
             Code = code,
         };
     }
+
 }

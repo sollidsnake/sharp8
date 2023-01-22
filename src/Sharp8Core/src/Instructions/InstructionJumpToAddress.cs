@@ -7,7 +7,7 @@ namespace Sharp8Core.Instructions;
 
 public class InstructionJumpToAddress : IInstruction
 {
-    public bool Execute(Chip8 chip8, int instructionCode)
+    public bool Execute(IChip8 chip8, int instructionCode)
     {
         var address = instructionCode & 0x0FFF;
         chip8.Memory.GoToAddress(address);

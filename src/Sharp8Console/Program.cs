@@ -14,7 +14,7 @@ if (args.Length == 0)
 IScreen screen = new Chip8Screen();
 var memory = new Chip8Memory(new Chip8Registers());
 var romReader = new Chip8RomReader(new FileSystem());
-Chip8 chip8 = new Chip8(screen, memory, romReader);
+IChip8 chip8 = new Chip8(screen, memory, romReader);
 chip8.LoadRom(args[0]);
 
 for (int i=0; i<1000; i++)

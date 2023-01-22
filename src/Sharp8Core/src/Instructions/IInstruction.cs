@@ -11,5 +11,5 @@ public interface IInstruction
     /*
      * returns true if cpu should increase pc
      */
-    public bool Execute(Chip8 chip8, int instructionCode);
+    public bool Execute(IChip8 chip8, int instructionCode);
 }

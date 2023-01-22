@@ -9,7 +9,7 @@ public static class DefaultServiceContainer
     {
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddSingleton<Chip8>();
+        serviceCollection.AddSingleton<IChip8>();
         serviceCollection.AddSingleton<Chip8RomReader>();
         serviceCollection.AddSingleton<Chip8Memory>();
 

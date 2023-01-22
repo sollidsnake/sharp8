@@ -10,7 +10,7 @@ public class Game
 {
     public const int FPS = 60;
     private readonly Vector2i _scale = new Vector2i(16, 16);
-    private Chip8 _chip8;
+    private IChip8 _chip8;
     private Screen _screen;
     private const int INSTRUCTIONS_PER_FRAME = 10;
 

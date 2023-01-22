@@ -1,25 +1,17 @@
 using Sharp8Core.Instructions;
-using Sharp8Core.RomReader;
 
 namespace Sharp8Core;
 
-public class Chip8
+public class Chip8: IChip8
 {
     public IScreen Screen { get; }
-    public Chip8Memory Memory { get; }
-    private Chip8RomReader _romReader;
+    public IChip8Memory Memory { get; }
     private const int CLOCK_SPEED = 500; // Hz
 
-    public Chip8(IScreen screen, Chip8Memory memory, Chip8RomReader romReader)
+    public Chip8(IScreen screen, IChip8Memory memory)
     {
         Screen = screen;
         Memory = memory;
-        _romReader = romReader;
-    }
-
-    public void LoadRom(string path)
-    {
-        Memory.LoadRom(_romReader.Read(path));
     }
 
     public void LoadRom(byte[] rom)

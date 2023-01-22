@@ -13,7 +13,7 @@ public class InstructionDrawSpriteTest
         var memory = new Chip8Memory(new Chip8Registers());
         var mockFileSystem = new Moq.Mock<IFileSystem>();
         var romReader = new Chip8RomReader(mockFileSystem.Object);
-        var chip8 = new Chip8(screen, memory, romReader);
+        var chip8 = new Chip8(screen, memory);
         memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
         memory.IRegisterAddress = 0x200;
 

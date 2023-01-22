@@ -1,15 +1,17 @@
 namespace Sharp8Core;
 
-public class Chip8Memory
+public class Chip8Memory : IChip8Memory
 {
     private const int RomStartingAddress = 0x200;
     private const uint MemorySize = 4096;
     public byte[] Memory { get; } = new byte[MemorySize];
     private int _iRegisterAddress = 0;
     public byte[] RomBytes { get; private set; } = default!;
-    // TODO: remove programcounter from chip8memory and put on chip8
+
+    // TODO: move programcounter from chip8memory to chip8
     public int ProgramCounter { get; set; } = RomStartingAddress;
-    public Chip8Registers Registers;
+
+    public Chip8Registers Registers { get; set; }
     public int IRegisterAddress
     {
         get { return _iRegisterAddress; }

@@ -8,7 +8,7 @@ namespace Sharp8Core.Instructions;
 
 public class InstructionAddToRegisterValue : IInstruction
 {
-    public bool Execute(Chip8 chip8, int instructionCode)
+    public bool Execute(IChip8 chip8, int instructionCode)
     {
         var register = (instructionCode >> 8) & 0x000f;
         var value = instructionCode & 0x00ff;
