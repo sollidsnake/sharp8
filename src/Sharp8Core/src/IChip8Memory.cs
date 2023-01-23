@@ -2,16 +2,11 @@ namespace Sharp8Core;
 
 public interface IChip8Memory
 {
+    int this[int address] => Memory[address];
+    int RomStartingAddress { get; }
     byte[] Memory { get; }
     byte[] RomBytes { get; }
-    int ProgramCounter { get; set; }
-    Chip8Registers Registers { get; set; }
-    int IRegisterAddress { get; set; }
-    int IRegisterValue { get; }
-
-    int CurrentInstruction();
     byte GetByteAtAddress(int address);
-    void GoToAddress(int address);
+    void SetByteAtAddress(int address, byte value);
     void LoadRom(byte[] rom);
-    void NextInstruction();
 }

@@ -8,20 +8,22 @@ public class Chip8Screen : IScreen
 
     public void Clear() { }
 
-    public virtual void DrawSpriteLine(int x, int y, int bytes)
+    public virtual void DrawSpriteLine(int startingX, int y, int bytes)
     {
         for (int i = 0; i < 8; i++)
         {
-            try
+            int x = (startingX + i);
+            if (x >= Width)
             {
-                var pixel = (((bytes << i) & 128) >> 7) != 0;
-                Grid[x, y] = pixel;
+                x = 0;
             }
-            catch (IndexOutOfRangeException)
+            if (y >= Height)
             {
-                Console.WriteLine("trying to drawn out of the canvas");
+                y = 0;
             }
-            x++;
+
+            var pixel = (((bytes << i) & 128) >> 7) != 0;
+            Grid[x, y] = pixel;
         }
     }
 
@@ -35,9 +37,7 @@ public class Chip8Screen : IScreen
         throw new NotImplementedException();
     }
 
-    public virtual void ScreenUpdated(int x, int y, int height)
-    {
-    }
+    public virtual void ScreenUpdated(int x, int y, int height) { }
 
     public void SetPixel(byte x, byte y)
     {

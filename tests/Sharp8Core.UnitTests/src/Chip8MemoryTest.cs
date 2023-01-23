@@ -7,7 +7,7 @@ namespace Sharp8Core.UnitTests
         {
             var startingRomAddress = 0x200;
             var romBytes = new byte[] { 0x12, 0x34, 0x56, 0x78 };
-            var memory = new Chip8Memory(new Chip8Registers());
+            var memory = new Chip8Memory();
 
             memory.LoadRom(romBytes);
 

@@ -21,11 +21,11 @@ public class InstructionVxXorVyTest
         registers.setVIndex(registerX, initialVx);
         registers.setVIndex(registerY, initialVy);
         var memory = new Moq.Mock<IChip8Memory>();
-        memory.Setup(m => m.Registers).Returns(registers);
         var instruction = new InstructionVxXorVy();
         var screen = new Moq.Mock<IScreen>();
         var chip8 = new Moq.Mock<IChip8>();
         chip8.Setup(c => c.Memory).Returns(memory.Object);
+        chip8.Setup(m => m.Registers).Returns(registers);
 
         instruction.Execute(chip8.Object, instructionCode);
 

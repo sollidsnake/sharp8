@@ -10,12 +10,12 @@ public class InstructionDrawSpriteTest
     public void WithExecute_ShouldDrawPixelsOnExpectedPositions()
     {
         IScreen screen = new Chip8Screen();
-        var memory = new Chip8Memory(new Chip8Registers());
+        var memory = new Chip8Memory();
         var mockFileSystem = new Moq.Mock<IFileSystem>();
         var romReader = new Chip8RomReader(mockFileSystem.Object);
-        var chip8 = new Chip8(screen, memory);
+        var chip8 = new Chip8(screen, memory, new Chip8Stack());
         memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
-        memory.IRegisterAddress = 0x200;
+        chip8.IRegister = 0x200;
 
         var instruction = new InstructionDrawSprite();
         instruction.Execute(chip8, 0xd004);

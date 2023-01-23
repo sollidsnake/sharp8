@@ -2,30 +2,16 @@ namespace Sharp8Core;
 
 public class Chip8Memory : IChip8Memory
 {
-    private const int RomStartingAddress = 0x200;
+    public int RomStartingAddress { get; } = 0x200;
     private const uint MemorySize = 4096;
     public byte[] Memory { get; } = new byte[MemorySize];
-    private int _iRegisterAddress = 0;
     public byte[] RomBytes { get; private set; } = default!;
 
-    // TODO: move programcounter from chip8memory to chip8
-    public int ProgramCounter { get; set; } = RomStartingAddress;
+    public int this[int address] => Memory[address];
 
-    public Chip8Registers Registers { get; set; }
-    public int IRegisterAddress
-    {
-        get { return _iRegisterAddress; }
-        set { _iRegisterAddress = value; }
-    }
-    public int IRegisterValue
-    {
-        get { return Memory[_iRegisterAddress]; }
-    }
-
-    public Chip8Memory(Chip8Registers registers)
+    public Chip8Memory()
     {
         Memory = new byte[MemorySize];
-        Registers = registers;
     }
 
     public void LoadRom(byte[] rom)
@@ -42,19 +28,8 @@ public class Chip8Memory : IChip8Memory
         return Memory[address];
     }
 
-    public int CurrentInstruction()
+    public void SetByteAtAddress(int address, byte value)
     {
-        return (Memory[ProgramCounter] << 8) | Memory[ProgramCounter + 1];
-    }
-
-    public void GoToAddress(int address)
-    {
-        ProgramCounter = address;
-    }
-
-    public void NextInstruction()
-    {
-        ProgramCounter += 2;
-        CurrentInstruction();
+        Memory[address] = value;
     }
 }

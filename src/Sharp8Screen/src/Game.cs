@@ -19,12 +19,12 @@ public class Game
         _screen = new Screen();
         var memory = new Chip8Memory(new Chip8Registers());
         var romReader = new Chip8RomReader(new FileSystem());
-        _chip8 = new Chip8(_screen, memory, romReader);
+        _chip8 = new Chip8(_screen, memory, new Chip8Stack());
     }
 
     public void Run(string filename)
     {
-        _chip8.LoadRom(filename);
+        _chip8.LoadRom(File.ReadAllBytes(filename));
         _screen.Window.SetFramerateLimit(FPS);
 
         var clock = new Clock();

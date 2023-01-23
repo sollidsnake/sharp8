@@ -13,10 +13,10 @@ public class InstructionDrawSprite : IInstruction
         var vx = (instructionCode >> 8) & 0xf;
         var vy = (instructionCode >> 4) & 0xf;
         var height = instructionCode & 0x000f;
-        var spriteAddress = chip8.Memory.IRegisterAddress;
+        var spriteAddress = chip8.IRegister;
 
-        var x = chip8.Memory.Registers.GetValue(vx);
-        var y = chip8.Memory.Registers.GetValue(vy);
+        var x = chip8.Registers.GetValue(vx);
+        var y = chip8.Registers.GetValue(vy);
 
         for (int line = 0; line < height; line++)
         {

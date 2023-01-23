@@ -4,7 +4,7 @@ public class InstructionSetIRegister : IInstruction
 {
     public bool Execute(IChip8 chip8, int code)
     {
-        chip8.Memory.IRegisterAddress =  code - 0xA000;
+        chip8.IRegister =  code - 0xA000;
 
         return true;
     }
