@@ -14,7 +14,7 @@ public class InstructionAddToRegisterValue : IInstruction
         var value = instructionCode & 0x00ff;
 
         var currentValue = chip8.Registers.GetValue(register);
-        chip8.Registers.setVIndex(register, value + currentValue);
+        chip8.Registers.SetVIndex(register, value + currentValue);
 
         return true;
     }

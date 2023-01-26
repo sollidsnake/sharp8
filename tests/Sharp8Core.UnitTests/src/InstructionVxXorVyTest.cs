@@ -18,8 +18,8 @@ public class InstructionVxXorVyTest
     {
         var serviceContainer = TestServiceContainer.GetServiceProvider();
         var registers = new Chip8Registers();
-        registers.setVIndex(registerX, initialVx);
-        registers.setVIndex(registerY, initialVy);
+        registers.SetVIndex(registerX, initialVx);
+        registers.SetVIndex(registerY, initialVy);
         var memory = new Moq.Mock<IChip8Memory>();
         var instruction = new InstructionVxXorVy();
         var screen = new Moq.Mock<IScreen>();

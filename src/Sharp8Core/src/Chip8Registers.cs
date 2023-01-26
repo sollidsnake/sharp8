@@ -4,6 +4,13 @@ public class Chip8Registers
 {
     // vx
     private int[] _register = new int[16];
+    public int IRegister { get; set; }
+
+    public int this[int index]
+    {
+        get => _register[index];
+        set => _register[index] = value;
+    }
 
     public Chip8Registers()
     {
@@ -18,10 +25,15 @@ public class Chip8Registers
         }
     }
 
-    public Chip8Registers setVIndex(int index, int value)
+    public Chip8Registers SetVIndex(int index, int value)
     {
         _register[index] = value;
         return this;
+    }
+
+    public Chip8Registers SetVIndex(int index, bool value)
+    {
+        return SetVIndex(index, value ? 1 : 0);
     }
 
     public virtual int GetValue(int index)

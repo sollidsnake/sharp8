@@ -7,7 +7,9 @@ public interface IChip8
     public IScreen Screen { get; }
     public IChip8Memory Memory { get; }
     public int ProgramCounter { get; set; }
+    public IChip8Stack Stack { get; }
     public Chip8Registers Registers { get; set; }
+    public byte DelayTimer { get; set; }
     private const int CLOCK_SPEED = 500; // Hz
 
     public void LoadRom(byte[] rom)
@@ -17,13 +19,29 @@ public interface IChip8
 
     public InstructionManager ExecuteNextInstruction();
 
-    public int IRegister { get; set; }
+    public int IRegister
+    {
+        get => Registers.IRegister;
+        set { Registers.IRegister = value; }
+    }
     public int IRegisterValue { get; set; }
     public InstructionManager CurrentInstruction();
     public void GoToAddress(int address);
     public void WaitClock();
     public void PushToStack(int address);
     public void PopFromStack();
+    public void TickTimers();
+
+    public void PrintDebug()
+    {
+        Console.WriteLine(
+            $"PC: {ProgramCounter:X4} I: {Registers.IRegister:X4} SP: {Stack.StackPointer:X2} DT: {DelayTimer:X2}"
+        );
+        for (int i = 0; i < 16; i++)
+        {
+            Console.Write($"{i:X2}:{Registers[i]:X2}|");
+        }
+    }
 
     public void PrintDebug(InstructionManager instruction)
     {

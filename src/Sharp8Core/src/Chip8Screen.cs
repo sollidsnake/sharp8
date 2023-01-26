@@ -8,8 +8,9 @@ public class Chip8Screen : IScreen
 
     public void Clear() { }
 
-    public virtual void DrawSpriteLine(int startingX, int y, int bytes)
+    public virtual bool DrawSpriteLine(int startingX, int y, int bytes)
     {
+        bool collision = false;
         for (int i = 0; i < 8; i++)
         {
             int x = (startingX + i);
@@ -23,8 +24,14 @@ public class Chip8Screen : IScreen
             }
 
             var pixel = (((bytes << i) & 128) >> 7) != 0;
-            Grid[x, y] = pixel;
+            if (Grid[x, y] && pixel)
+            {
+                collision = true;
+            }
+            Grid[x, y] ^= pixel;
         }
+
+        return collision;
     }
 
     public bool GetPixel(int x, int y)

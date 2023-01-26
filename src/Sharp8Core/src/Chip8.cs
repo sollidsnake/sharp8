@@ -6,12 +6,13 @@ public class Chip8 : IChip8
 {
     public IScreen Screen { get; }
     public IChip8Memory Memory { get; }
-    protected IChip8Stack Stack { get; }
+    public IChip8Stack Stack { get; }
     public int ProgramCounter { get; set; }
     private int _iRegisterAddress = 0;
     public Chip8Registers Registers { get; set; }
+    public byte DelayTimer { get; set; }
 
-    private const int CLOCK_SPEED = 500; // Hz
+    private const int CLOCK_SPEED_HZ = 500;
 
     public Chip8(IScreen screen, IChip8Memory memory, IChip8Stack stack)
     {
@@ -24,19 +25,27 @@ public class Chip8 : IChip8
 
     public int IRegister
     {
-        get { return _iRegisterAddress; }
-        set { _iRegisterAddress = value; }
+        get => Registers.IRegister;
+        set { Registers.IRegister = value; }
     }
 
     public int IRegisterValue
     {
-        get { return Memory[_iRegisterAddress]; }
-        set { IRegister = value; }
+        get { return Memory[Registers.IRegister]; }
+        set => Memory.SetByteAtAddress(IRegister, (byte)value);
     }
 
     public void LoadRom(byte[] rom)
     {
         Memory.LoadRom(rom);
+    }
+
+    public void TickTimers()
+    {
+        if (DelayTimer > 0)
+        {
+            DelayTimer--;
+        }
     }
 
     public InstructionManager ExecuteNextInstruction()
@@ -70,7 +79,7 @@ public class Chip8 : IChip8
 
     public void WaitClock()
     {
-        Thread.Sleep((int)(1000f / CLOCK_SPEED));
+        Thread.Sleep((int)(1000f / CLOCK_SPEED_HZ));
     }
 
     public void PrintDebug(InstructionManager instruction)
@@ -89,12 +98,12 @@ public class Chip8 : IChip8
 
     public void PushToStack(int address)
     {
-        Stack.Push(Memory[ProgramCounter]);
+        Stack.Push(ProgramCounter + 2);
         ProgramCounter = address;
     }
 
     public void PopFromStack()
     {
-        throw new NotImplementedException();
+        ProgramCounter = Stack.Pop();
     }
 }

@@ -21,7 +21,7 @@ public class InstructionBinaryCodedDecimalTest
         var mockChip8Stack = new Moq.Mock<IChip8Stack>();
         var mockChip8 = new Moq.Mock<IChip8>();
         var registers = new Chip8Registers();
-        registers.setVIndex(vx, vxValue);
+        registers.SetVIndex(vx, vxValue);
         mockChip8.SetupGet(x => x.IRegister).Returns(iRegisterAddress);
         mockChip8.SetupGet(x => x.Memory).Returns(memory);
         mockChip8.SetupGet(x => x.Registers).Returns(registers);

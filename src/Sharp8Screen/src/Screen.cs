@@ -9,7 +9,7 @@ public class Screen : Chip8Screen
 {
     public RenderWindow Window { get; }
     private string _title = "Sharp8";
-    private readonly Vector2u _scale = new Vector2u((uint)16, (uint)16);
+    private readonly Vector2u _scale = new Vector2u((uint)18, (uint)18);
     private readonly VertexArray[,] _visualGrid;
     private Color _colorBG = Color.Black;
     private Color _colorFG = Color.Green;
@@ -40,11 +40,22 @@ public class Screen : Chip8Screen
         }
     }
 
-    public override void ScreenUpdated(int x, int y, int height)
+    public override void ScreenUpdated(int startingX, int y, int height)
     {
-        for (int i = x; i < x + 8; i++)
+        var maxX = startingX + 8;
+        if (maxX > Width)
         {
-            for (int j = y; j < y + height; j++)
+            maxX = Width;
+        }
+
+        for (int i = startingX; i < maxX; i++)
+        {
+            var maxY = y + height;
+            if (maxY > Height)
+            {
+                maxY = Height;
+            }
+            for (int j = y; j < maxY; j++)
             {
                 DrawPixel(i, j);
             }

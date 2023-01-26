@@ -13,7 +13,7 @@ public class InstructionSetRegister : IInstruction
         var lastTwoHex = instructionCode & 0x00FF;
         var secondHex = instructionCode >> 8 & 0xf;
 
-        chip8.Registers.setVIndex(secondHex, lastTwoHex);
+        chip8.Registers.SetVIndex(secondHex, lastTwoHex);
 
         return true;
     }

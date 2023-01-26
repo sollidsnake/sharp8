@@ -1,3 +1,4 @@
+
 namespace Sharp8Core.UnitTests;
 
 public class Chip8ScreenTest
@@ -27,5 +28,15 @@ public class Chip8ScreenTest
                 $"Pixel {i} should be {expected[i]} for number {sprite}"
             );
         }
+    }
+
+    [Fact]
+    public void DrawSpriteLine_ShouldReturnTrueIfPixelIsFlipped()
+    {
+        IScreen screen = new Chip8Screen();
+
+        screen.DrawSpriteLine(0, 0, 0b11111111);
+        Assert.True(screen.DrawSpriteLine(0, 0, 0b10000000));
+        Assert.False(screen.GetPixel(0, 0));
     }
 }

@@ -16,7 +16,7 @@ public interface IScreen
     }
 
     void Clear();
-    void DrawSpriteLine(int x, int y, int bytes);
+    bool DrawSpriteLine(int x, int y, int bytes);
     bool GetPixel(int x, int y);
 
     public string GenGridTableWithBorders()

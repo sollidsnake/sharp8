@@ -10,10 +10,10 @@ public class Program
     {
         var game = new Game();
 
-        if (args.Length == 2)
+        if (args.Length == 1)
         {
-            // game.Run(args[1]);
-            // return;
+            game.Run(args[0]);
+            return;
         }
 
         game.Run("../../tests/assets/ibmlogo.ch8");

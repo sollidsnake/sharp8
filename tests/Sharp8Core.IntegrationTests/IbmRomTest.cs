@@ -12,8 +12,7 @@ public class IbmRomTest
         "..",
         "..",
         "..",
-        "tests",
-        "assets",
+        "roms",
         "ibmlogo.ch8"
     );
 

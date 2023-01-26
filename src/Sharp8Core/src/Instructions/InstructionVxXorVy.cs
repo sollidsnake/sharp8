@@ -1,5 +1,9 @@
 namespace Sharp8Core.Instructions;
 
+/// <summary>
+/// 8xy3 - XOR Vx, Vy
+/// Set Vx = Vx XOR Vy.
+/// </summary>
 public class InstructionVxXorVy : IInstruction
 {
     public bool Execute(IChip8 chip8, int instructionCode)
@@ -10,7 +14,7 @@ public class InstructionVxXorVy : IInstruction
         var valueX = chip8.Registers.GetValue(vx);
         var valueY = chip8.Registers.GetValue(vy);
 
-        chip8.Registers.setVIndex(vx, valueX ^ valueY);
+        chip8.Registers.SetVIndex(vx, valueX ^ valueY);
 
         return true;
     }

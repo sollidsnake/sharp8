@@ -4,28 +4,29 @@ public interface IChip8Stack
 {
     int Pop();
     void Push(int value);
+    public uint StackPointer { get; }
 }
 
 public class Chip8Stack : IChip8Stack
 {
     private readonly int[] _stack;
-    private int _stackPointer;
+    public uint StackPointer { get; private set; }
 
     public Chip8Stack()
     {
         _stack = new int[16];
-        _stackPointer = 0;
+        StackPointer = 0;
     }
 
     public void Push(int value)
     {
-        _stack[_stackPointer] = value;
-        _stackPointer++;
+        _stack[StackPointer] = value;
+        StackPointer++;
     }
 
     public int Pop()
     {
-        _stackPointer--;
-        return _stack[_stackPointer];
+        StackPointer--;
+        return _stack[StackPointer];
     }
 }
