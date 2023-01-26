@@ -39,8 +39,9 @@ public interface IChip8
         );
         for (int i = 0; i < 16; i++)
         {
-            Console.Write($"{i:X2}:{Registers[i]:X2}|");
+            Console.Write($"v{i:X}:{Registers[i]:X2}|");
         }
+        Console.WriteLine();
     }
 
     public void PrintDebug(InstructionManager instruction)

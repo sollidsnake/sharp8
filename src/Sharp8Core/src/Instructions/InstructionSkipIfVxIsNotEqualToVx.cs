@@ -9,7 +9,7 @@ public class InstructionSkipIfVxIsNotEqualToNN : IInstruction
     public bool Execute(IChip8 chip8, int instructionCode)
     {
         var register = (instructionCode & 0x0F00) >> 8;
-        var value = chip8.Registers.IRegister;
+        var value = instructionCode & 0x00FF;
         var registerValue = chip8.Registers[register];
 
         if (value != registerValue)

@@ -28,19 +28,30 @@ public class Game
     public void DebugWaitKeyPress()
     {
         _waitingForDebugKey = true;
-        _screen.Window.KeyReleased += new EventHandler<KeyEventArgs>((sender, e) =>
+        while (_waitingForDebugKey)
         {
-            if (e.Code == Keyboard.Key.F10)
-            {
-                _waitingForDebugKey = false;
-            }
-        });
-
-        _screen.Window.WaitAndDispatchEvents();
+            _screen.Window.WaitAndDispatchEvents();
+        }
     }
 
     public void Run(string filename)
     {
+        _screen.Window.KeyReleased += new EventHandler<KeyEventArgs>(
+            (sender, e) =>
+            {
+                if (e.Code == Keyboard.Key.F10)
+                {
+                    _waitingForDebugKey = false;
+                }
+
+                if (e.Code == Keyboard.Key.F5)
+                {
+                    Debug = !Debug;
+                    _waitingForDebugKey = false;
+                }
+            }
+        );
+
         _chip8.LoadRom(File.ReadAllBytes(filename));
         _screen.Window.SetFramerateLimit(FPS);
 
@@ -59,6 +70,7 @@ public class Game
                     DebugWaitKeyPress();
                 }
                 _chip8.ExecuteNextInstruction();
+                _chip8.PrintDebug();
             }
 
             _screen.Draw();
@@ -66,7 +78,6 @@ public class Game
 
             var time = clock.ElapsedTime;
             Console.WriteLine($"FPS: {1f / time.AsSeconds()}");
-            _chip8.PrintDebug();
             clock.Restart();
         }
     }

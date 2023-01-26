@@ -5,14 +5,18 @@ namespace Sharp8Core.UnitTests;
 
 public class InstructionAddVyToVxTest
 {
-    [Fact]
-    public void WithExecute_ShouldAddVyToVx()
+    [Theory]
+    [InlineData(0x8794, 1, 0xff, 0, true)]
+    public void WithExecute_ShouldAddVyToVx(
+        int instructionCode,
+        byte vxValue,
+        byte vyValue,
+        byte expected,
+        bool vf
+    )
     {
-        var instructionCode = 0x8684;
-        var vx = 0x6;
-        var vy = 0x8;
-        var vxValue = 10;
-        var vyValue = 15;
+        var vx = (byte)((instructionCode & 0x0f00) >> 8);
+        var vy = (byte)((instructionCode & 0x00f0) >> 4);
         var mockChip8 = new Mock<IChip8>();
         var instruction = new InstructionAddVyToVx();
         var registers = new Chip8Registers();
@@ -22,6 +26,9 @@ public class InstructionAddVyToVxTest
 
         instruction.Execute(mockChip8.Object, instructionCode);
 
-        Assert.Equal(vxValue + vyValue, registers[vx]);
+        Console.WriteLine(expected);
+        Console.WriteLine(registers[vx]);
+        Assert.Equal(expected, registers[vx]);
+        Assert.Equal(vf ? 1 : 0, registers[0xf]);
     }
 }
