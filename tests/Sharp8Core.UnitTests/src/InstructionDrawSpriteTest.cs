@@ -1,6 +1,4 @@
-using System.IO.Abstractions;
 using Sharp8Core.Instructions;
-using Sharp8Core.RomReader;
 
 namespace Sharp8Core.UnitTests;
 
@@ -11,8 +9,6 @@ public class InstructionDrawSpriteTest
     {
         IScreen screen = new Chip8Screen();
         var memory = new Chip8Memory();
-        var mockFileSystem = new Moq.Mock<IFileSystem>();
-        var romReader = new Chip8RomReader(mockFileSystem.Object);
         var chip8 = new Chip8(screen, memory, new Chip8Stack());
         memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
         chip8.IRegister = 0x200;
@@ -42,5 +38,20 @@ public class InstructionDrawSpriteTest
             }
             Assert.False(screen.GetPixel(i, 2));
         }
+    }
+
+    [Fact]
+    public void WithExecute_ShouldSetVfTo01IfPixelsAreFlipped()
+    {
+        IScreen screen = new Chip8Screen();
+        var memory = new Chip8Memory();
+        var chip8 = new Chip8(screen, memory, new Chip8Stack());
+        memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
+        chip8.IRegister = 0x200;
+        screen.DrawSpriteLine(0, 0, 0xf);
+
+        new InstructionDrawSprite().Execute(chip8, 0xd004);
+
+        Assert.Equal(1, chip8.Registers.GetValue(0xf));
     }
 }

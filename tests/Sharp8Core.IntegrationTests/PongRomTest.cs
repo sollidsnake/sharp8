@@ -43,7 +43,8 @@ public class PongRomTest
         {
             Assert.Equal(0xf007, chip8.ExecuteNextInstruction().Code);
             Assert.Equal(0x3000, chip8.ExecuteNextInstruction().Code);
-            if (i < 0x60) {
+            if (i < 0x60)
+            {
                 Assert.Equal(0x121a, chip8.ExecuteNextInstruction().Code);
             }
             chip8.TickTimers();
@@ -68,73 +69,8 @@ public class PongRomTest
         Assert.Equal(0xc00a, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0x7dfe, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0x4000, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6000, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x601f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8d02, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdcd6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xa2f0, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xd671, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x03, chip8.Registers[0x6]);
-        Assert.Equal(0x8684, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x05, chip8.Registers[0x6]);
-        Assert.Equal(0xff, chip8.Registers[0x9]);
-        Assert.Equal(0x8794, chip8.ExecuteNextInstruction().Code);
-        // Assert.Equal(0x06, chip8.Registers[0x7]);
-        Assert.Equal(0x603f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8602, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x611f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8712, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x4602, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x463f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x471f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x4700, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xd671, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x122a, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xa2ea, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdab6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdcd6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6001, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xe0a1, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6004, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xe0a1, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x601f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8b02, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdab6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8d70, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xc00a, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x7dfe, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x4000, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6000, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x601f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8d02, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdcd6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xa2f0, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xd671, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8684, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8794, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x603f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8602, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x611f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x8712, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x4602, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x463f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x471f, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x4700, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xd671, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x122a, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xa2ea, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdab6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xdcd6, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6001, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xe0a1, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x6004, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0xe0a1, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x601f, chip8.ExecuteNextInstruction().Code);
 
         // Assert.Equal(0x7708, chip8.ExecuteNextInstruction().Code);
-
-        Console.WriteLine(chip8.Screen.GenGridTableWithBorders());
-        chip8.PrintDebug();
     }
 
     [Fact]

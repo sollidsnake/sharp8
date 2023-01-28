@@ -26,8 +26,6 @@ public class InstructionAddVyToVxTest
 
         instruction.Execute(mockChip8.Object, instructionCode);
 
-        Console.WriteLine(expected);
-        Console.WriteLine(registers[vx]);
         Assert.Equal(expected, registers[vx]);
         Assert.Equal(vf ? 1 : 0, registers[0xf]);
     }

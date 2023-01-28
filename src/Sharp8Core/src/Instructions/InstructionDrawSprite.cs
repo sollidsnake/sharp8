@@ -18,14 +18,24 @@ public class InstructionDrawSprite : IInstruction
         var x = chip8.Registers.GetValue(vx);
         var y = chip8.Registers.GetValue(vy);
 
+        var collision = false;
         for (int line = 0; line < height; line++)
         {
             var bytesToDraw = chip8.Memory.Memory[spriteAddress];
 
-            chip8.Screen.DrawSpriteLine(x, line + y, bytesToDraw);
+            var _collision = chip8.Screen.DrawSpriteLine(
+                x,
+                line + y,
+                bytesToDraw
+            );
+            if (!collision)
+            {
+                collision = _collision;
+            }
             spriteAddress += 1;
         }
 
+        chip8.Registers.SetVIndex(0xf, collision);
         chip8.Screen.ScreenUpdated(x, y, height);
 
         return true;

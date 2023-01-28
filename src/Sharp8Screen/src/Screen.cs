@@ -8,12 +8,12 @@ namespace Sharp8Screen;
 public class Screen : Chip8Screen
 {
     public RenderWindow Window { get; }
-    private string _title = "Sharp8";
-    private readonly Vector2u _scale = new Vector2u((uint)18, (uint)18);
+    private readonly string _title = "Sharp8";
+    private readonly Vector2u _scale = new(18, 18);
     private readonly VertexArray[,] _visualGrid;
     private Color _colorBG = Color.Black;
     private Color _colorFG = Color.Green;
-    private RectangleShape[,] _pixels = new RectangleShape[64, 32];
+    private readonly RectangleShape[,] _pixels = new RectangleShape[64, 32];
 
     public Screen()
     {
@@ -40,15 +40,15 @@ public class Screen : Chip8Screen
         }
     }
 
-    public override void ScreenUpdated(int startingX, int y, int height)
+    public override void ScreenUpdated(int x, int y, int height)
     {
-        var maxX = startingX + 8;
+        var maxX = x + 8;
         if (maxX > Width)
         {
             maxX = Width;
         }
 
-        for (int i = startingX; i < maxX; i++)
+        for (int i = x; i < maxX; i++)
         {
             var maxY = y + height;
             if (maxY > Height)
@@ -99,12 +99,11 @@ public class Screen : Chip8Screen
 
     public RectangleShape CreatePixel(int x, int y, Color color)
     {
-        var pixel = new RectangleShape(new Vector2f(_scale.X, _scale.Y));
-
-        pixel.FillColor = color;
-        pixel.Position = new Vector2f(x * _scale.X, y * _scale.Y);
-
-        return pixel;
+        return new RectangleShape(new Vector2f(_scale.X, _scale.Y))
+        {
+            FillColor = color,
+            Position = new Vector2f(x * _scale.X, y * _scale.Y)
+        };
     }
 
     private VertexArray CreateSquareVertex(int unscaledX, int unscaledY)
@@ -136,6 +135,4 @@ public class Screen : Chip8Screen
 
         return vertexes;
     }
-
-    public void DrawSprite(int x, int y, byte[] sprite) { }
 }

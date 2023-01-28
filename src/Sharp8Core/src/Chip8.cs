@@ -8,9 +8,9 @@ public class Chip8 : IChip8
     public IChip8Memory Memory { get; }
     public IChip8Stack Stack { get; }
     public int ProgramCounter { get; set; }
-    private int _iRegisterAddress = 0;
     public Chip8Registers Registers { get; set; }
     public byte DelayTimer { get; set; }
+    public Chip8Input Input { get; set; }
 
     private const int CLOCK_SPEED_HZ = 500;
 
@@ -20,18 +20,20 @@ public class Chip8 : IChip8
         Memory = memory;
         Stack = stack;
         ProgramCounter = Memory.RomStartingAddress;
+
         Registers = new Chip8Registers();
+        Input = new Chip8Input();
     }
 
     public int IRegister
     {
         get => Registers.IRegister;
-        set { Registers.IRegister = value; }
+        set => Registers.IRegister = value;
     }
 
     public int IRegisterValue
     {
-        get { return Memory[Registers.IRegister]; }
+        get => Memory[Registers.IRegister];
         set => Memory.SetByteAtAddress(IRegister, (byte)value);
     }
 

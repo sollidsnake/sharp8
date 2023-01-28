@@ -22,7 +22,7 @@ public class InstructionSubtractVyToVx : IInstruction
         );
 
         chip8.Registers.SetVIndex(vx, newValue);
-        chip8.Registers.SetVIndex(0xf, carry);
+        chip8.Registers.SetVIndex(0xf, !carry);
 
         return true;
     }

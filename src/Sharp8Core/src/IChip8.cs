@@ -9,6 +9,7 @@ public interface IChip8
     public int ProgramCounter { get; set; }
     public IChip8Stack Stack { get; }
     public Chip8Registers Registers { get; set; }
+    public Chip8Input Input { get; set; }
     public byte DelayTimer { get; set; }
     private const int CLOCK_SPEED = 500; // Hz
 

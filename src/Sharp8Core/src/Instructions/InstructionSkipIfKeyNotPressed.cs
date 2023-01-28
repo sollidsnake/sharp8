@@ -8,7 +8,14 @@ public class InstructionSkipIfKeyNotPressed : IInstruction
 {
     public bool Execute(IChip8 chip8, int instructionCode)
     {
-        chip8.ProgramCounter += 2;
+        byte vx = (byte)((instructionCode & 0x0f00) >> 8);
+        var keyHex = chip8.Registers[vx];
+
+        if (!chip8.Input[keyHex])
+        {
+            chip8.ProgramCounter += 2;
+        }
+
         return true;
     }
 }

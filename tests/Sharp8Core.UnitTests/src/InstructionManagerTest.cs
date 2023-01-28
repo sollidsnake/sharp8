@@ -49,4 +49,20 @@ public class InstructionManagerTest
             instruction.Action.GetType()
         );
     }
+
+    [Theory]
+    [InlineData(0xE0A1)]
+    [InlineData(0xE1A1)]
+    [InlineData(0xE2A1)]
+    [InlineData(0xE3A1)]
+    public void WithEXA1_ShouldReturnCorrectInstruction(int instructionCode)
+    {
+        var instruction = InstructionManager.FromCode(instructionCode);
+
+        Assert.Equal(instructionCode, instruction.Code);
+        Assert.Equal(
+            typeof(InstructionSkipIfKeyNotPressed),
+            instruction.Action.GetType()
+        );
+    }
 }
