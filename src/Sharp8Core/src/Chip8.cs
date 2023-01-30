@@ -11,8 +11,14 @@ public class Chip8 : IChip8
     public Chip8Registers Registers { get; set; }
     public byte DelayTimer { get; set; }
     public Chip8Input Input { get; set; }
+    public const int CLOCK_SPEED_HZ = 500;
 
-    private const int CLOCK_SPEED_HZ = 500;
+    public int IRegisterValue
+    {
+        get => Memory[Registers.I];
+        set => Registers.I = value;
+    }
+    public byte? WaitingForKeyPressOnRegister { get; set; }
 
     public Chip8(IScreen screen, IChip8Memory memory, IChip8Stack stack)
     {
@@ -25,16 +31,20 @@ public class Chip8 : IChip8
         Input = new Chip8Input();
     }
 
-    public int IRegister
+    public void WaitForKeyPressOnRegisterX(byte register)
     {
-        get => Registers.IRegister;
-        set => Registers.IRegister = value;
+        WaitingForKeyPressOnRegister = register;
     }
 
-    public int IRegisterValue
+    public void WaitKeyPressed(byte key)
     {
-        get => Memory[Registers.IRegister];
-        set => Memory.SetByteAtAddress(IRegister, (byte)value);
+        if (WaitingForKeyPressOnRegister == null)
+        {
+            return;
+        }
+
+        Registers[WaitingForKeyPressOnRegister.Value] = key;
+        WaitingForKeyPressOnRegister = null;
     }
 
     public void LoadRom(byte[] rom)

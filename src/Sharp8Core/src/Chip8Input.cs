@@ -6,7 +6,7 @@ public class Chip8Input
 
     public bool this[int index]
     {
-        get { return _keys[index]; }
-        set { _keys[index] = value; }
+        get => _keys[index];
+        set => _keys[index] = value;
     }
 }

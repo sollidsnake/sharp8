@@ -8,7 +8,7 @@ public class InstructionSetIRegister : IInstruction
 {
     public bool Execute(IChip8 chip8, int code)
     {
-        chip8.Registers.IRegister =  code & 0x0FFF;
+        chip8.Registers.I =  code & 0x0FFF;
 
         return true;
     }

@@ -4,7 +4,7 @@ public class Chip8Registers
 {
     // vx
     private int[] _register = new int[16];
-    public int IRegister { get; set; }
+    public int I { get; set; }
 
     public int this[int index]
     {

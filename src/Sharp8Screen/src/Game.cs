@@ -94,6 +94,17 @@ public class Game
         }
 
         _chip8.ExecuteNextInstruction();
+
+        if (_chip8.WaitingForKeyPressOnRegister != null)
+        {
+            _screen.Window.KeyPressed += new EventHandler<KeyEventArgs>(
+                (sender, e) =>
+                {
+                    _chip8.WaitKeyPressed((byte)e.Code);
+                }
+            );
+            _screen.Window.WaitAndDispatchEvents();
+        }
         // _chip8.PrintDebug();
     }
 }

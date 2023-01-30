@@ -10,9 +10,8 @@ public class InstructionStoreVyOnVx : IInstruction
     {
         var vx = (instructionCode & 0x0f00) >> 8;
         var vy = (instructionCode & 0x00f0) >> 4;
-        var vyValue = chip8.Registers[vy];
 
-        chip8.Registers.SetVIndex(vx, vyValue);
+        chip8.Registers[vx] = chip8.Registers[vy];
 
         return true;
     }

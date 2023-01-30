@@ -27,7 +27,6 @@ public class Screen : Chip8Screen
         Window.Closed += (sender, args) =>
         {
             Window.Close();
-
             Environment.Exit(0);
         };
         CreatePixels();

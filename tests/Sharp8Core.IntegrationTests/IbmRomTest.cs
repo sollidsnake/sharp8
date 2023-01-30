@@ -50,7 +50,7 @@ public class IbmRomTest
 
         Assert.Equal(0x00E0, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0xA22A, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x22A, chip8.IRegister);
+        Assert.Equal(0x22A, chip8.Registers.I);
         Assert.Equal(0xff, chip8.IRegisterValue);
         Assert.Equal(0x600C, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0x0C, chip8.Registers.GetValue(0));
@@ -62,7 +62,7 @@ public class IbmRomTest
         Assert.Equal(21, chip8.Registers.GetValue(0));
         Assert.Equal(8, chip8.Registers.GetValue(1));
         Assert.Equal(0xa239, chip8.ExecuteNextInstruction().Code);
-        Assert.Equal(0x239, chip8.IRegister);
+        Assert.Equal(0x239, chip8.Registers.I);
         Assert.Equal(0xff, chip8.IRegisterValue);
         Assert.Equal(0xd01f, chip8.ExecuteNextInstruction().Code);
         Assert.Equal(0xa248, chip8.ExecuteNextInstruction().Code);

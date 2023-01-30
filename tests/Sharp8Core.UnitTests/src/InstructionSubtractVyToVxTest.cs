@@ -17,7 +17,6 @@ public class InstructionSubtractVytoVxTest
         var vxInitialValue = 0x01;
         var vyInitialValue = 0x02;
         var expected = 0xFF;
-        var carry = true;
         registers.SetVIndex(vx, vxInitialValue);
         registers.SetVIndex(vy, vyInitialValue);
         chip8.SetupGet(x => x.Registers).Returns(registers);

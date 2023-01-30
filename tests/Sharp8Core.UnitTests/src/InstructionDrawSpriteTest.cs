@@ -11,7 +11,7 @@ public class InstructionDrawSpriteTest
         var memory = new Chip8Memory();
         var chip8 = new Chip8(screen, memory, new Chip8Stack());
         memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
-        chip8.IRegister = 0x200;
+        chip8.Registers.I = 0x200;
 
         var instruction = new InstructionDrawSprite();
         instruction.Execute(chip8, 0xd004);
@@ -47,7 +47,7 @@ public class InstructionDrawSpriteTest
         var memory = new Chip8Memory();
         var chip8 = new Chip8(screen, memory, new Chip8Stack());
         memory.LoadRom(new byte[] { 0xff, 0x00, 0xff });
-        chip8.IRegister = 0x200;
+        chip8.Registers.I = 0x200;
         screen.DrawSpriteLine(0, 0, 0xf);
 
         new InstructionDrawSprite().Execute(chip8, 0xd004);
