@@ -1,7 +1,7 @@
 # Chip 8 Emulator/Interpreter
 
 This is a Chip 8 emulator I wrote to learn C#. The core is decoupled from the
-UI, so it's possible to implement it using any UI libraryu For this project I
+UI, so it's possible to implement it using any UI library. For this project I
 implemented using SFML.
 
 ## Build
