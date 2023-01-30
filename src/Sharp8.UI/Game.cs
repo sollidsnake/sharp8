@@ -9,7 +9,7 @@ public class Game
     public const uint FPS = 60;
     private readonly IChip8 _chip8;
     private readonly Screen _screen;
-    public uint InstructionsPerSeccond { get; set; } = 10;
+    public uint InstructionsPerSecond { get; set; } = 10;
     private bool _debug;
     private bool _waitingForDebugKey;
     public string[] DebugPoints { get; set; } = Array.Empty<string>();
@@ -71,7 +71,7 @@ public class Game
     {
         _screen.Window.DispatchEvents();
 
-        for (int i = 0; i < InstructionsPerSeccond; i++)
+        for (int i = 0; i < InstructionsPerSecond; i++)
         {
             ExecuteChip8Instruction();
         }

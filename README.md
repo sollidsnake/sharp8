@@ -16,7 +16,7 @@ To run, `cd` into `src/Sharp8.UI` and run `dotnet run [chip 8 rom file]`. You
 
 ## Other commands
 - You can use `-v` to show debug information (PC, registers)
-- You can use `--ips` to set number of instructions per seccond
+- You can use `--ips` to set number of instructions per second
 - Run the program with `--help` for more information
 
 ## Sound

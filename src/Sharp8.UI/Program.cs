@@ -26,7 +26,7 @@ public class Program
             new[] { "--debug-at-address", "-d" },
             "Make the emulation stop at the specified addresses"
         );
-        var instructionsPerSeccond = new Option<uint>(
+        var instructionsPerSecond = new Option<uint>(
             new[] { "--instructions-per-second", "--ips", "-i" },
             "The number of instructions to execute per second (default 60)"
         );
@@ -37,7 +37,7 @@ public class Program
 
         rootCommand.AddOption(debugOpt);
         rootCommand.AddOption(verboseOpt);
-        rootCommand.AddOption(instructionsPerSeccond);
+        rootCommand.AddOption(instructionsPerSecond);
 
         rootCommand.SetHandler(
             (arg) =>
@@ -52,10 +52,10 @@ public class Program
                     verboseOpt
                 );
                 var ips = arg.ParseResult.CommandResult.GetValueForOption(
-                    instructionsPerSeccond
+                    instructionsPerSecond
                 );
 
-                game.InstructionsPerSeccond = ips > 0 ? ips : 10;
+                game.InstructionsPerSecond = ips > 0 ? ips : 10;
                 game.DebugPoints = debugPoints ?? Array.Empty<string>();
                 if (verbose)
                 {
