@@ -31,6 +31,7 @@ public class InstructionManager
             { 0x800E, new InstructionStoreLeftShiftedVyOnVx() },
             { 0x9000, new InstructionSkipIfVxIsNotEqualToVy() },
             { 0xA000, new InstructionSetIRegister() },
+            { 0xB000, new InstructionJumpToAddressNNNPlusV0() },
             { 0xC000, new InstructionSetVxToRandomNumber() },
             { 0xD000, new InstructionDrawSprite() },
             { 0xE09E, new InstructionSkipIfKeyIsStoredInVx() },
@@ -57,6 +58,8 @@ public class InstructionManager
             0x00EE => Factory(instruction, Instructions[0x00EE]),
             int x when x is >= 0xA000 and <= 0xAFFF
                 => Factory(instruction, Instructions[0xA000]),
+            int x when x is >= 0xB000 and <= 0xBFFF
+                => Factory(instruction, Instructions[0xB000]),
             int x when x is >= 0x6000 and <= 0x6FFF
                 => Factory(instruction, Instructions[0x6000]),
             int x when x is >= 0xC000 and <= 0xCFFF
