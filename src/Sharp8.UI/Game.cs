@@ -14,12 +14,15 @@ public class Game
     private bool _waitingForDebugKey;
     public string[] DebugPoints { get; set; } = Array.Empty<string>();
     public bool PrintDebug { get; set; }
+    private readonly Audio _audio;
+    public bool PlayAudio { get; set; } = true;
 
     public Game()
     {
         _screen = new Screen();
         _chip8 = new Chip8(_screen, new Chip8Memory(), new Chip8StackList());
         _ = new Input(_screen.Window, _chip8.Input);
+        _audio = new Audio();
     }
 
     public void DebugWaitKeyPress()
@@ -80,6 +83,18 @@ public class Game
         clock.Restart();
     }
 
+    private void UpdateAudio()
+    {
+        if (_chip8.SoundTimer > 0)
+        {
+            _audio.Play();
+        }
+        else
+        {
+            _audio.Stop();
+        }
+    }
+
     private void ExecuteChip8Instruction()
     {
         if (_debug)
@@ -105,6 +120,11 @@ public class Game
                 }
             );
             _screen.Window.WaitAndDispatchEvents();
+        }
+
+        if (PlayAudio)
+        {
+            UpdateAudio();
         }
 
         if (PrintDebug)
