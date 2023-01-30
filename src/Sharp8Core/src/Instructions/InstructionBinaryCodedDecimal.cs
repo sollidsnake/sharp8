@@ -9,15 +9,13 @@ public class InstructionBinaryCodedDecimal : IInstruction
         var value = chip8.Registers.GetValue(vx);
 
         var firstDigit = (byte)(value / 100);
-        var secondDigit = (byte)((value / 10) % 10);
+        var secondDigit = (byte)(value / 10 % 10);
         var thirdDigit = (byte)(value % 10);
         var iRegister = chip8.IRegister;
 
         chip8.Memory.SetByteAtAddress(iRegister++, firstDigit);
         chip8.Memory.SetByteAtAddress(iRegister++, secondDigit);
         chip8.Memory.SetByteAtAddress(iRegister++, thirdDigit);
-
-        chip8.IRegister = iRegister;
 
         return true;
     }

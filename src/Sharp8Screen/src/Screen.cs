@@ -24,7 +24,12 @@ public class Screen : Chip8Screen
 
         _visualGrid = CreateGrid();
 
-        Window.Closed += (sender, args) => Window.Close();
+        Window.Closed += (sender, args) =>
+        {
+            Window.Close();
+
+            Environment.Exit(0);
+        };
         CreatePixels();
     }
 

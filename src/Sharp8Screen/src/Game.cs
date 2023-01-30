@@ -1,4 +1,3 @@
-using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using Sharp8Core;
@@ -13,6 +12,7 @@ public class Game
     private const int INSTRUCTIONS_PER_FRAME = 10;
     private bool _debug;
     private bool _waitingForDebugKey;
+    public string[] DebugPoints { get; set; } = Array.Empty<string>();
 
     public Game()
     {
@@ -34,7 +34,7 @@ public class Game
     {
         _chip8.LoadRom(File.ReadAllBytes(filename));
         _screen.Window.SetFramerateLimit(FPS);
-        SetupDebug();
+        SetupDebugKeys();
 
         var clock = new Clock();
 
@@ -44,7 +44,7 @@ public class Game
         }
     }
 
-    public void SetupDebug()
+    public void SetupDebugKeys()
     {
         _screen.Window.KeyReleased += new EventHandler<KeyEventArgs>(
             (sender, e) =>
@@ -85,7 +85,15 @@ public class Game
         {
             DebugWaitKeyPress();
         }
+
+        var chip8PCX4 = _chip8.ProgramCounter.ToString("X4");
+        if (DebugPoints.Contains(chip8PCX4))
+        {
+            Console.WriteLine($"Debug point hit: {chip8PCX4}");
+            _debug = true;
+        }
+
         _chip8.ExecuteNextInstruction();
-        _chip8.PrintDebug();
+        // _chip8.PrintDebug();
     }
 }
