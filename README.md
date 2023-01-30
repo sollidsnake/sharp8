@@ -1,12 +1,12 @@
 # Chip 8 Emulator/Interpreter
 
 This is a Chip 8 emulator I wrote to learn C#. The core is decoupled from the
-UI, so it's possible to implement it using any UI library. For this project I
+UI, so it's possible to implement it using any UI libraryu For this project I
 implemented using SFML.
 
 ## Build
 To run, `cd` into `src/Sharp8.UI` and run `dotnet run [chip 8 rom file]`. You
-  need dotnet 7 runtime.
+  need Dotnet 7 SDK.
 
 ## Debugging
 - You can set (multiple) breaking points using `-d` or `--debug-at-address`
