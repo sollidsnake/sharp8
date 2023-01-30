@@ -11,9 +11,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Sharp8Screen/bin/Debug/net7.0/Sharp8Screen.dll",
+            "program": "${workspaceFolder}/src/Sharp8.UI/bin/Debug/net7.0/Sharp8.UI.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Sharp8Screen",
+            "cwd": "${workspaceFolder}/src/Sharp8.UI",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
@@ -27,9 +27,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/tests/Sharp8Core.UnitTests/bin/Debug/net7.0/Sharp8Core.UnitTests.dll",
+            "program": "${workspaceFolder}/tests/Sharp8.Core.UnitTests/bin/Debug/net7.0/Sharp8.Core.UnitTests.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/tests/Sharp8Core.UnitTests",
+            "cwd": "${workspaceFolder}/tests/Sharp8.Core.UnitTests",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
