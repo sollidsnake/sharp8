@@ -9,14 +9,13 @@ public class Program
 
     public static int Main(string[] args)
     {
-        // TestDebug();
-        // return 0;
-        return CreateArgumentParser().Invoke(args);
+        CreateArgumentParser().Invoke(args);
+
+        return 0;
     }
 
     private static RootCommand CreateArgumentParser()
     {
-        var game = new Game();
         var rootCommand = new RootCommand(
             "Sharp 8 - A CHIP-8 emulator written in C#"
         );
@@ -25,33 +24,50 @@ public class Program
         rootCommand.AddArgument(romArg);
 
         var debugOpt = new Option<string[]>(
-            new[] { "--debug-at-addresses", "-d" },
+            new[] { "--debug-at-address", "-d" },
             "Make the emulation stop at the specified addresses"
+        );
+        var instructionsPerSeccond = new Option<uint>(
+            new[] { "--instructions-per-second", "--ips", "-i" },
+            "The number of instructions to execute per second (default 60)"
+        );
+        var verboseOpt = new Option<bool>(
+            new[] { "--verbose", "-v" },
+            "Enable verbose logging"
         );
 
         rootCommand.AddOption(debugOpt);
+        rootCommand.AddOption(verboseOpt);
+        rootCommand.AddOption(instructionsPerSeccond);
 
         rootCommand.SetHandler(
             (arg) =>
             {
-                var romFile = arg.ParseResult.CommandResult.GetValueForArgument(romArg);
-                var debugPoints = arg.ParseResult.CommandResult.GetValueForOption(debugOpt);
+                var game = new Game();
+                var romFile = arg.ParseResult.CommandResult.GetValueForArgument(
+                    romArg
+                );
+                var debugPoints =
+                    arg.ParseResult.CommandResult.GetValueForOption(debugOpt);
+                var verbose = arg.ParseResult.CommandResult.GetValueForOption(
+                    verboseOpt
+                );
+                var ips = arg.ParseResult.CommandResult.GetValueForOption(
+                    instructionsPerSeccond
+                );
 
+                game.InstructionsPerSeccond = ips > 0 ? ips : 10;
                 game.DebugPoints = debugPoints ?? Array.Empty<string>();
+                if (verbose)
+                {
+                    game.PrintDebug = true;
+                }
+
                 game.Run(romFile);
-                // stop execution
                 Environment.Exit(0);
             }
         );
 
         return rootCommand;
-    }
-
-    public static void TestDebug()
-    {
-        var game = new Game { DebugPoints = new string[] { "0202" } };
-        Console.WriteLine("Debuggingt at " + game.DebugPoints[0]);
-
-        game.Run("/home/jesse/code/learn/sharp-8/roms/ibmlogo.ch8");
     }
 }

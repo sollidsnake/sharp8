@@ -6,13 +6,14 @@ namespace Sharp8Screen;
 
 public class Game
 {
-    public const int FPS = 60;
+    public const uint FPS = 60;
     private readonly IChip8 _chip8;
     private readonly Screen _screen;
-    private const int INSTRUCTIONS_PER_FRAME = 10;
+    public uint InstructionsPerSeccond { get; set; } = 10;
     private bool _debug;
     private bool _waitingForDebugKey;
     public string[] DebugPoints { get; set; } = Array.Empty<string>();
+    public bool PrintDebug { get; set; }
 
     public Game()
     {
@@ -67,7 +68,7 @@ public class Game
     {
         _screen.Window.DispatchEvents();
 
-        for (int i = 0; i < INSTRUCTIONS_PER_FRAME; i++)
+        for (int i = 0; i < InstructionsPerSeccond; i++)
         {
             ExecuteChip8Instruction();
         }
@@ -105,6 +106,10 @@ public class Game
             );
             _screen.Window.WaitAndDispatchEvents();
         }
-        // _chip8.PrintDebug();
+
+        if (PrintDebug)
+        {
+            _chip8.PrintDebug();
+        }
     }
 }
