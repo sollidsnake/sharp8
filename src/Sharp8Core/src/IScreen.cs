@@ -10,10 +10,7 @@ public interface IScreen
 
     public abstract void ScreenUpdated(int x, int y, int height);
 
-    public int ScreenSize
-    {
-        get { return Width * Height; }
-    }
+    public int ScreenSize => Width * Height;
 
     void Clear();
     bool DrawSpriteLine(int x, int y, int bytes);

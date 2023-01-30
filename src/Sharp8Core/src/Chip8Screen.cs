@@ -6,17 +6,26 @@ public class Chip8Screen : IScreen
     public int Height => 32;
     public bool[,] Grid { get; } = new bool[64, 32];
 
-    public void Clear() { }
+    public void Clear()
+    {
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                Grid[x, y] = false;
+            }
+        }
+    }
 
-    public virtual bool DrawSpriteLine(int startingX, int y, int bytes)
+    public virtual bool DrawSpriteLine(int x, int y, int bytes)
     {
         bool collision = false;
         for (int i = 0; i < 8; i++)
         {
-            int x = (startingX + i);
-            if (x >= Width)
+            int currentX = x + i;
+            if (currentX >= Width)
             {
-                x = 0;
+                currentX = 0;
             }
             if (y >= Height)
             {
@@ -24,11 +33,11 @@ public class Chip8Screen : IScreen
             }
 
             var pixel = (((bytes << i) & 128) >> 7) != 0;
-            if (Grid[x, y] && pixel)
+            if (Grid[currentX, y] && pixel)
             {
                 collision = true;
             }
-            Grid[x, y] ^= pixel;
+            Grid[currentX, y] ^= pixel;
         }
 
         return collision;
