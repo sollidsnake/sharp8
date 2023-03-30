@@ -21,4 +21,6 @@ To run, `cd` into `src/Sharp8.UI` and run `dotnet run [chip 8 rom file]`. You
 
 ## Sound
 This emulator has sound implementation as well. The program will try to load the
-  file assets/beep.wav
+  file `assets/beep.wav`. You can generate the file by running the C# script 
+  `CreateBeepSound.csx` in the `src/Sharp8.UI/` folder, or you can just paste 
+  any other wav file.
